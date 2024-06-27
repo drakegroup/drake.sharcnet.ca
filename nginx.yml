@@ -12,7 +12,10 @@ services:
       - dhparam:/etc/nginx/dhparam
       - certs:/etc/nginx/certs:ro
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - $(pwd)/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf:ro
+      - type: bind
+        source: ./client_max_body_size.conf
+        target: /etc/nginx/conf.d/client_max_body_size.conf
+        read_only: true
     environment:
       TZ: America/Toronto
     network_mode: bridge
