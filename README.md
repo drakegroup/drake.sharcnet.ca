@@ -2,7 +2,6 @@
 
 - Linux x64 (ie. Ubuntu 24.04 LTS) with public IP and ports 443 and 80 exposed to the internet
 - docker engine ([installation guide](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository))
-- docker-compose (`apt install docker-compose`)
 - DNS A-record for drake.sharcnet.ca should point to the public IP of the server
 
 ## Installation
@@ -20,6 +19,6 @@ cd drake.sharcnet.ca
 - spin up the containers:
 
 ```bash
-docker-compose -f ./docker/nginx.yml up -d
-docker-compose -f ./docker/mediawiki.yml up -d
+docker compose -f nginx.yml up -d
+docker compose -f mediawiki.yml up -d
 ```
