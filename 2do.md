@@ -1,0 +1,4 @@
+- migrate SQL data
+- migrate static data
+- spin up mediawiki
+- document setup in readme
