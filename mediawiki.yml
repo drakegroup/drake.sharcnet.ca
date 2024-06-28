@@ -1,28 +1,25 @@
 services:
-  # This key also defines the name of the database host used during setup instead of the default "localhost"
   database:
+    container_name: db-mediawiki
     image: mariadb
     restart: always
     volumes:
       - ./db:/var/lib/mysql
     environment:
-      # @see https://phabricator.wikimedia.org/source/mediawiki/browse/master/includes/DefaultSettings.php
-      MYSQL_DATABASE: my_wiki
-      MYSQL_USER: wikiuser
-      MYSQL_PASSWORD: example
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     network_mode: bridge
   mediawiki:
+    container_name: mediawiki
     image: mediawiki
     restart: always
     links:
       - database
     volumes:
       - ./images:/var/www/html/images
-      # After initial setup, download LocalSettings.php to the same directory as
-      # this yaml and uncomment the following line and use compose to restart
-      # the mediawiki service
-      # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+      - ./LocalSettings.php:/var/www/html/LocalSettings.php
     environment:
       VIRTUAL_HOST: drake.techiteasy.ca
       LETSENCRYPT_HOST: drake.techiteasy.ca

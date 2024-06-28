@@ -2,3 +2,5 @@
 - migrate static data
 - spin up mediawiki
 - document setup in readme
+- ask Fraser for the DNS entry
+- remove drake.techiteasy.ca entry
