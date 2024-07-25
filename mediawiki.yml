@@ -1,7 +1,7 @@
 services:
   database:
     container_name: db-mediawiki
-    image: mariadb
+    image: mysql:5.7.40
     restart: always
     volumes:
       - ./db:/var/lib/mysql
@@ -13,14 +13,19 @@ services:
     network_mode: bridge
   mediawiki:
     container_name: mediawiki
-    image: mediawiki
+    depends_on:
+      - database
+    build:
+      dockerfile_inline: |
+        FROM php:7.2.24-apache
+        RUN docker-php-ext-install mysqli
     restart: always
     links:
       - database
     volumes:
-      - ./images:/var/www/html/images
-      - ./LocalSettings.php:/var/www/html/LocalSettings.php
+      - ./html:/var/www/html
+      - ./logs:/var/log/apache2
     environment:
-      VIRTUAL_HOST: drake.techiteasy.ca
-      LETSENCRYPT_HOST: drake.techiteasy.ca
+      VIRTUAL_HOST: drake.sharcnet.ca
+      LETSENCRYPT_HOST: drake.sharcnet.ca
     network_mode: bridge
