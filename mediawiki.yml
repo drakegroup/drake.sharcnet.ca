@@ -25,6 +25,7 @@ services:
     volumes:
       - ./html:/var/www/html
       - ./logs:/var/log/apache2
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     environment:
       VIRTUAL_HOST: drake.sharcnet.ca
       LETSENCRYPT_HOST: drake.sharcnet.ca

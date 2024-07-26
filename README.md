@@ -28,6 +28,6 @@ source .env
 - spin up the environment
 
 ```bash
-docker compose -f nginx.yml up -d
-docker compose -f mediawiki.yml up -d
+sudo docker compose -f nginx.yml up -d
+sudo docker compose -f mediawiki.yml up -d
 ```
