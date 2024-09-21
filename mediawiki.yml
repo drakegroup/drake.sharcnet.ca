@@ -19,13 +19,17 @@ services:
       dockerfile_inline: |
         FROM php:7.2.24-apache
         RUN docker-php-ext-install mysqli
+        RUN ln -sf /dev/stdout /var/log/nginx/access.log
+        RUN ln -sf /dev/stderr /var/log/nginx/error.log
     restart: always
     links:
       - database
     volumes:
       - ./html:/var/www/html
-      - ./logs:/var/log/apache2
       - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+    logging:
+      options:
+        max-size: 50m
     environment:
       VIRTUAL_HOST: drake.sharcnet.ca
       LETSENCRYPT_HOST: drake.sharcnet.ca
